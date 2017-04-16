@@ -16,17 +16,17 @@ using namespace std;
 void check_arguments(int argc, char* argv[]) {
   string instruction = "Usage instructions: ";
   instruction += argv[0];
-  instruction += " path/to/input.txt output.txt";
+  instruction += " path/to/input.txt output.txt true|false(laser process flag) true|false(radar process flag)";
 
   bool valid = false;
 
   if (argc == 1) {
     cerr << instruction << endl;
-  } else if (argc == 2) {
-    cerr << "Please include input and output files. \n" << instruction;
-  } else if (argc == 3) {
+  } else if (argc >= 2 && argc <= 4) {
+    cerr << "Please include input file, output files and radar and laser process flags \n" << instruction;
+  } else if (argc == 5) {
     valid = true;
-  } else if (argc > 3) {
+  } else if (argc > 5) {
     cerr << "Too many arguments.\n" << instruction;
   }
 
@@ -117,7 +117,9 @@ int main(int argc, char* argv[]) {
 
   // Read data into DataSource object
   DataSource data_source;
-  data_source.Load(in_file_name);
+  bool process_laser_measurement = (strcmp(argv[3], "true") == 0); // Set to true if laser measurements should be process, false otherwise
+  bool process_radar_measurement = (strcmp(argv[4], "true") == 0); // Set to true if radar measurements should be process, false otherwise
+  data_source.Load(in_file_name, process_laser_measurement, process_radar_measurement);
   cout << "Data load is complete." << endl;
   cout << data_source.ToString() << endl;
 

@@ -30,7 +30,7 @@ public:
   /**
    * Load data from given file name
    */
-  void Load(string file_name);
+  void Load(string file_name, bool process_laser_measurement, bool process_radar_measurement);
 
   /**
    * return string representation of current object
