@@ -1,9 +1,10 @@
 # Extended Kalman Filter
-This Project first project of second term of Udacity Self-Driving Car Nanodegree program. The goal is to apply Extended Kalman Filter to data from LIDAR and RADAR sensors by C++.
+This Project is first project of second term of Udacity Self-Driving Car Nanodegree program. The goal is to apply Extended Kalman Filter to data from LIDAR and RADAR sensors by C++.
 
 ## Content
 - `scr` contains source code:
   - `main.cpp` - loads data, calls a function to run the Kalman filter, calls a function to calculate RMSE
+  - `data_source.cpp` - load input data into measurement and ground truth vectors
   - `fusion_ekf.cpp` - initializes the filter, calls the predict function, calls the update function
   - `kalman_filter.cpp`- defines the predict function, the update function for lidar, and the update function for radar
   - `tools.cpp` - a function to calculate RMSE and the Jacobian matrix
@@ -27,6 +28,7 @@ Here is the RMSEs comparion of expected and above calculations:
 | Lidar | 0.0681865 | 0.0607532 | 0.625587 | 0.570902 |
 | Radar | 0.10121 | 0.0823387 | 0.601316 | 0.581942 |
 
+
 #### Radar and Lidar measurements are considered
 ![input 1 (radar+lidar)](result/plot1-laser-radar.png)
 
@@ -48,6 +50,7 @@ Here is the RMSEs comparion of expected and above calculations:
 | Lidar | 0.217995 | 0.19416 | 0.93745 | 0.800829 |
 | Radar | 2.80105 | 2.67625 | 3.83749 | 4.39577 |
 
+
 #### Radar and Lidar measurements are considered
 ![input 2 (radar+lidar)](result/plot2-laser-radar.png)
 
@@ -63,6 +66,14 @@ Here is the RMSEs comparion of expected and above calculations:
 The results were visualized with [Sensor Fusion utilities](https://github.com/udacity/CarND-Mercedes-SF-Utilities).
 
 ## Lessons Learned
-- Considering both sensor data (LIDAR and RADAR) give much better accuracy
-- Lidar sensor give better measurement (I think lidar sensor noises are less)
-- 
+- Considering both sensor data (LIDAR and RADAR) give much better accuracy. You can see in RSME table that when we are considering both sensor data, we have acceptable RMSE.
+- Lidar sensor give more accurate measurement than radar
+
+## Build Instructions
+1. Clone this repo.
+2. Make a build directory: `mkdir build && cd build`
+3. Compile: `cmake ../src && make` 
+   * On windows, you may need to run: `cmake ../src -G "Unix Makefiles" && make`
+4. Run it: `./ExtendedKF path/to/input.txt path/to/output.txt`. You can find
+   some sample inputs in 'data/'.
+    - eg. `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt output.txt true|false true|false`
